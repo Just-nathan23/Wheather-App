@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ==================== SPRITE D'ICÔNES (SVG) ====================
+     Utilisation : <svg class="icon"><use href="#i-nom"></use></svg>
+     Les icônes héritent de la couleur du texte (currentColor). -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-logo" viewBox="0 0 24 24">
+        <path d="M12 2v1.5M4.6 5.6l1 1M19.4 5.6l-1 1M2.5 11.5H4"/>
+        <path d="M8 11.5a4 4 0 0 1 7.6-1.2"/>
+        <path d="M8 21h9.5a3.5 3.5 0 0 0 .4-7 5.5 5.5 0 0 0-10.6 1A3 3 0 0 0 8 21Z"/>
+    </symbol>
+    <symbol id="i-home" viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5"/>
+        <path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24">
+        <path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 7v5l3 2"/>
+    </symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24">
+        <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/>
+        <circle cx="16" cy="6" r="2"/>
+        <circle cx="10" cy="12" r="2"/>
+        <circle cx="18" cy="18" r="2"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="m20 20-3.5-3.5"/>
+    </symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24">
+        <path d="M12 3s6 6.2 6 10.5a6 6 0 0 1-12 0C6 9.2 12 3 12 3Z"/>
+    </symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24">
+        <path d="M3 8h10a3 3 0 1 0-3-3"/>
+        <path d="M3 12h15a3 3 0 1 1-3 3"/>
+        <path d="M3 16h6"/>
+    </symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24">
+        <path d="M4.5 18a9 9 0 1 1 15 0"/>
+        <path d="m12 14 4-5"/>
+        <circle cx="12" cy="14" r="1"/>
+    </symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24">
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+        <circle cx="12" cy="12" r="3"/>
+    </symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    </symbol>
+    <symbol id="i-thermo" viewBox="0 0 24 24">
+        <path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0Z"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24">
+        <path d="M11 20A7 7 0 0 1 4 13c0-6 5-9 16-9 0 11-3 16-9 16Z"/>
+        <path d="M4 20c2-5 5-8 10-10"/>
+    </symbol>
+</svg>
+
+<div class="app-wrapper">
+
+    <!-- ==================== SIDEBAR ==================== -->
+
+    <aside class="sidebar">
+
+        <div class="window-dots" aria-hidden="true">
+            <i></i><i></i><i></i>
+        </div>
+
+        <div class="logo">
+            <div class="logo-icon">
+                <svg class="icon"><use href="#i-logo"></use></svg>
+            </div>
+            <h2>Weather<br>Dashboard</h2>
+        </div>
+
+        <nav aria-label="Navigation principale">
+            <ul>
+                <li>
+                    <a href="#" class="active" aria-current="page">
+                        <svg class="icon"><use href="#i-home"></use></svg>
+                        Dashboard
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="#">
+                        <svg class="icon"><use href="#i-clock"></use></svg>
+                        Historique
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg class="icon"><use href="#i-settings"></use></svg>
+                        Paramètres
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </aside>
+
+
+    <!-- ==================== CONTENU PRINCIPAL ==================== -->
+
+    <main class="main-content">
+
+        <header>
+            <h1>Weather Dashboard</h1>
+        </header>
+
+
+        <!-- ==================== RECHERCHE ==================== -->
+
+        <form id="search-form" class="search-box">
+
+            <div class="search-field">
+                <svg class="icon"><use href="#i-search"></use></svg>
+                <input
+                    type="text"
+                    id="city-input"
+                    placeholder="Entrez une ville (ex: New York)..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <button type="submit" id="search-btn">
+                Rechercher
+            </button>
+
+        </form>
+
+
+        <!-- ==================== CARTE PRINCIPALE ==================== -->
+
+        <section class="main-card">
+
+            <!-- Silhouette de la ville (décor) -->
+            <svg class="skyline" viewBox="0 0 560 220" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
+                <g fill="#8fabd3">
+                    <rect x="20"  y="150" width="34" height="70"/>
+                    <rect x="60"  y="125" width="28" height="95"/>
+                    <rect x="94"  y="160" width="40" height="60"/>
+                    <rect x="140" y="110" width="30" height="110"/>
+                    <rect x="176" y="140" width="36" height="80"/>
+                    <rect x="218" y="95"  width="32" height="125"/>
+                    <rect x="256" y="130" width="30" height="90"/>
+                </g>
+                <g fill="#6f8fc2">
+                    <!-- Tour principale -->
+                    <polygon points="338,12 346,60 346,220 318,220 318,60 326,12 332,0 334,0"/>
+                    <rect x="294" y="120" width="22" height="100"/>
+                    <rect x="350" y="105" width="26" height="115"/>
+                    <rect x="380" y="140" width="34" height="80"/>
+                    <rect x="418" y="115" width="28" height="105"/>
+                    <rect x="450" y="150" width="38" height="70"/>
+                    <rect x="492" y="130" width="30" height="90"/>
+                    <rect x="526" y="165" width="34" height="55"/>
+                </g>
+            </svg>
+
+            <div class="main-weather">
+
+                <div class="main-card-header">
+                    <h2 id="city-name"></h2>
+                    <p id="date-time"></p>
+                </div>
+
+                <div class="main-card-body">
+
+                    <div class="temp-box">
+                        <img
+                            id="weather-icon"
+                            src="https://cdn.weatherapi.com/weather/64x64/day/116.png"
+                            alt="Météo"
+                        >
+                        <span id="temperature" class="temperature"></span>
+                    </div>
+
+                    <div class="weather-info">
+                        <p id="weather-condition"></p>
+                        <p>
+                            Ressenti :
+                            <span id="feels-like" class="feels-like"></span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================== INFORMATIONS RAPIDES ==================== -->
+
+            <div class="main-details">
+
+                <div class="detail">
+                    <span class="detail-icon"><svg class="icon"><use href="#i-droplet"></use></svg></span>
+                    <div>
+                        <span class="detail-label">Humidité</span>
+                        <strong id="humidity-main" class="humidity"></strong>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <span class="detail-icon"><svg class="icon"><use href="#i-wind"></use></svg></span>
+                    <div>
+                        <span class="detail-label">Vent</span>
+                        <strong id="wind-main" class="wind"></strong>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <span class="detail-icon"><svg class="icon"><use href="#i-gauge"></use></svg></span>
+                    <div>
+                        <span class="detail-label">Pression</span>
+                        <strong id="pressure-main" class="pressure"></strong>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <span class="detail-icon"><svg class="icon"><use href="#i-eye"></use></svg></span>
+                    <div>
+                        <span class="detail-label">Visibilité</span>
+                        <strong id="visibility-main" class="visibility"></strong>
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <span class="detail-icon"><svg class="icon"><use href="#i-sun"></use></svg></span>
+                    <div>
+                        <span class="detail-label">UV Index</span>
+                        <strong id="uv-main" class="uv"></strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== CARTES DU BAS ==================== -->
+
+        <section class="bottom-grid">
+
+            <div class="card">
+                <h3><svg class="icon"><use href="#i-thermo"></use></svg>Température</h3>
+                <p id="temperature-card" class="temperature"></p>
+                <small>Ressenti <span id="feels-like-card" class="feels-like"></span></small>
+            </div>
+
+            <div class="card">
+                <h3><svg class="icon"><use href="#i-droplet"></use></svg>Humidité</h3>
+                <p id="humidity" class="humidity"></p>
+                <small id="humidity-status">Confortable</small>
+            </div>
+
+            <div class="card">
+                <h3><svg class="icon"><use href="#i-wind"></use></svg>Vent</h3>
+                <p id="wind" class="wind"></p>
+                <small id="wind-direction">NW</small>
+            </div>
+
+            <div class="card">
+                <h3><svg class="icon"><use href="#i-gauge"></use></svg>Pression</h3>
+                <p id="pressure" class="pressure"></p>
+                <small>Stable</small>
+            </div>
+
+            <div class="card">
+                <h3><svg class="icon"><use href="#i-sun"></use></svg>UV Index</h3>
+                <p id="uv-index" class="uv"></p>
+                <small id="uv-status">Élevé</small>
+            </div>
+
+            <div class="card">
+                <h3><svg class="icon"><use href="#i-leaf"></use></svg>Qualité de l'air</h3>
+                <p id="air-quality"></p>
+                <small id="air-quality-status">Bon</small>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="JS/App.js"></script>
+
+
+</body>
+
+</html>

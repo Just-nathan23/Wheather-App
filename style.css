@@ -1,0 +1,593 @@
+/* =====================================================
+   WEATHER DASHBOARD : style.css
+   Palette : marine #0d2a52 / bleu action #1456f0 / ciel #e8f0fc
+   Police  : Plus Jakarta Sans (fallback système)
+   ===================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --navy-900: #071a36;
+    --navy-800: #0d2a52;
+    --navy-700: #14396d;
+    --blue-600: #1456f0;
+    --blue-500: #2f6df6;
+    --blue-100: #e3ecfd;
+    --sky-top: #f4f8ff;
+    --sky-bottom: #d9e6fb;
+    --ink-900: #0f1f3d;
+    --ink-600: #4a5b78;
+    --ink-400: #8392ab;
+    --line: rgba(15, 31, 61, 0.08);
+    --card: #ffffff;
+    --green: #2e9e62;
+    --amber: #f5a524;
+
+    --radius-window: 28px;
+    --radius-card: 16px;
+    --radius-control: 12px;
+
+    --font: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    font-family: var(--font);
+    color: var(--ink-900);
+    background:
+        radial-gradient(900px 500px at 20% 10%, rgba(47, 109, 246, 0.18), transparent 60%),
+        radial-gradient(700px 500px at 90% 90%, rgba(20, 86, 240, 0.14), transparent 60%),
+        var(--navy-900);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+/* ---------- Icônes SVG ---------- */
+
+.icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* ---------- Fenêtre principale ---------- */
+
+.app-wrapper {
+    width: 100%;
+    max-width: 1180px;
+    height: 600px;
+    display: grid;
+    grid-template-columns: 236px 1fr;
+    border-radius: var(--radius-window);
+    overflow: hidden;
+    background: linear-gradient(160deg, #f7faff 0%, #eaf1fd 100%);
+    box-shadow:
+        0 40px 80px -20px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+
+.sidebar {
+    background: linear-gradient(180deg, var(--navy-800) 0%, var(--navy-900) 100%);
+    color: #fff;
+    padding: 26px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.window-dots {
+    display: flex;
+    gap: 8px;
+    padding-left: 6px;
+}
+
+.window-dots i {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+}
+
+.window-dots i:nth-child(1) { background: #ff6b6b; }
+.window-dots i:nth-child(2) { background: #ffd24a; }
+.window-dots i:nth-child(3) { background: #4cd470; }
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 6px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, var(--blue-500), var(--blue-600));
+    box-shadow: 0 8px 18px rgba(20, 86, 240, 0.45);
+}
+
+.logo-icon .icon {
+    width: 24px;
+    height: 24px;
+    stroke: #fff;
+}
+
+.logo h2 {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.1px;
+}
+
+.sidebar nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius-control);
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.68);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar nav a:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #fff;
+}
+
+.sidebar nav a.active {
+    background: linear-gradient(135deg, var(--blue-600), #1d4fc7);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(20, 86, 240, 0.35);
+}
+
+.sidebar nav a:focus-visible,
+#search-btn:focus-visible {
+    outline: 2px solid #9cc0ff;
+    outline-offset: 2px;
+}
+
+/* =====================================================
+   CONTENU PRINCIPAL
+   ===================================================== */
+
+.main-content {
+    padding: 28px 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    min-width: 0;
+}
+
+.main-content header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ink-900);
+}
+
+/* ---------- Recherche ---------- */
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+}
+
+.search-field {
+    position: relative;
+    flex: 1;
+}
+
+.search-field .icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-400);
+    pointer-events: none;
+}
+
+#city-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px 0 46px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-control);
+    background: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-900);
+    box-shadow: 0 4px 14px rgba(20, 56, 120, 0.06);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#city-input::placeholder {
+    color: var(--ink-400);
+    font-weight: 400;
+}
+
+#city-input:focus {
+    outline: none;
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 4px rgba(47, 109, 246, 0.16);
+}
+
+#search-btn {
+    height: 48px;
+    padding: 0 26px;
+    border: none;
+    border-radius: var(--radius-control);
+    background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(20, 86, 240, 0.32);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+#search-btn:hover {
+    box-shadow: 0 10px 24px rgba(20, 86, 240, 0.42);
+}
+
+#search-btn:active {
+    transform: translateY(1px);
+}
+
+/* ---------- Carte principale ---------- */
+
+.main-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    padding: 30px 32px;
+    min-height: 230px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 18px 40px -16px rgba(20, 56, 120, 0.35);
+}
+
+.skyline {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 62%;
+    max-width: 560px;
+    height: auto;
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.main-weather,
+.main-details {
+    position: relative;
+    z-index: 1;
+}
+
+.main-card-header h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink-900);
+}
+
+.main-card-header p {
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-600);
+}
+
+.main-card-body {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-top: 18px;
+}
+
+.temp-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#weather-icon {
+    width: 92px;
+    height: 92px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 14px rgba(245, 165, 36, 0.35));
+}
+
+.temp-box .temperature {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -3px;
+    color: var(--navy-800);
+}
+
+.weather-info p:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink-900);
+}
+
+.weather-info p + p {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--ink-600);
+}
+
+.weather-info .feels-like {
+    font-weight: 600;
+    color: var(--ink-900);
+}
+
+/* Détails rapides (liste à droite) */
+
+.main-details {
+    align-self: center;
+    min-width: 230px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.detail + .detail {
+    border-top: 1px solid var(--line);
+}
+
+.detail-icon {
+    display: grid;
+    place-items: center;
+    color: var(--blue-600);
+}
+
+.detail-icon .icon {
+    width: 18px;
+    height: 18px;
+}
+
+.detail > div {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+}
+
+.detail-label {
+    font-size: 13px;
+    color: var(--ink-600);
+}
+
+.detail strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-900);
+}
+
+/* ---------- Cartes du bas ---------- */
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border-radius: var(--radius-card);
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 24px -14px rgba(20, 56, 120, 0.3);
+    min-width: 0;
+}
+
+.card h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-600);
+}
+
+.card h3 .icon {
+    width: 18px;
+    height: 18px;
+    color: var(--blue-600);
+}
+
+.card p {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ink-900);
+}
+
+.card small {
+    font-size: 12px;
+    color: var(--ink-400);
+}
+
+.card small .feels-like {
+    color: var(--ink-600);
+    font-weight: 600;
+}
+
+/* Accents par carte : la qualité de l'air prend la couleur du statut */
+
+.card:nth-child(5) h3 .icon { color: var(--amber); }
+.card:nth-child(6) h3 .icon { color: var(--green); }
+.card:nth-child(6) p { color: var(--green); }
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 1000px) {
+    .bottom-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 820px) {
+    body {
+        padding: 0;
+        align-items: stretch;
+    }
+
+    .app-wrapper {
+        grid-template-columns: 1fr;
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        gap: 12px;
+    }
+
+    .window-dots,
+    .logo h2 {
+        display: none;
+    }
+
+    .sidebar nav ul {
+        flex-direction: row;
+    }
+
+    .sidebar nav a {
+        padding: 10px 12px;
+        font-size: 0;
+        gap: 0;
+    }
+
+    .main-content {
+        padding: 22px 18px 28px;
+    }
+
+    .main-card {
+        grid-template-columns: 1fr;
+        padding: 22px 20px;
+    }
+
+    .main-details {
+        min-width: 0;
+    }
+
+    .skyline {
+        width: 100%;
+        opacity: 0.35;
+    }
+}
+
+@media (max-width: 520px) {
+    .main-card-body {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .temp-box .temperature {
+        font-size: 58px;
+    }
+
+    .bottom-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .search-box {
+        flex-wrap: wrap;
+    }
+
+    #search-btn {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
