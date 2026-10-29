@@ -1,5 +1,3 @@
-// ui.js : comportements d'interface uniquement (aucune logique météo ici).
-// La récupération des données reste dans App.js.
 
 document.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".sidebar nav a");
